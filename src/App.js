@@ -15,7 +15,7 @@ function App() {
     const fetchResponse = await fetch( "https://us-central1-mlab-challenge.cloudfunctions.net/jobs");
 
     fetchResponse.json().then(jobs=>{
-      console.log(jobs)
+      // console.log(jobs)
         if(state.length ===0){
           setState(jobs)
         }
@@ -26,7 +26,7 @@ function App() {
   }
 
   return (
-    <Container  style={{flex:1, minHeight: window.outerHeight, display:'flex', justifyContent: 'space-between', flexDirection: 'row', backgroundColor: 'green', flexWrap: 'wrap'}}>
+    <div className='container-fluid'   style={{flex:1, minHeight: window.outerHeight, display:'flex', justifyContent: 'flex-start', flexDirection: 'row', backgroundColor: '#e6ee9c', flexWrap: 'wrap'}}>
       {/* <Row> */}
       {state? state.map((jobEntry, index)=>{
         return <ListCard key={jobEntry.id} {...jobEntry}/>
@@ -35,7 +35,7 @@ function App() {
       
       {/* <pre>{state? JSON.stringify(state, null, '\t'):null}</pre> */}
       {error? error:null}
-    </Container>
+    </div>
   );
 }
 
