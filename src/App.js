@@ -1,42 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import { Container, Row, Col } from "shards-react";
-import ListCard from "./components/ListCard/ListCard";
+import { Route, Switch, Link, BrowserRouter as Router, useLocation, useHistory } from "react-router-dom";
+import Home from "./screens/Home/Home";
+import JobDetail from "./screens/JobDetail/JobDetail";
 function App() {
-  const [state, setState] = useState([]);
-  const [error, setError] = useState('');
-  // const [state, dispatch] = useReducer(reducer, initialState, init)
-  useEffect( ()=>{
-    getJobs();
-  },[]);
-  
-  async function getJobs(){
-    let response;
-    const fetchResponse = await fetch( "https://us-central1-mlab-challenge.cloudfunctions.net/jobs");
 
-    fetchResponse.json().then(jobs=>{
-      // console.log(jobs)
-        if(state.length ===0){
-          setState(jobs)
-        }
-    }).catch(rejected=>{
-      setError(rejected.message);
-    })
-    
+  function handleBack() {
+    console.log('---handle back');
   }
 
-  return (
-    <div className='container-fluid'   style={{flex:1, minHeight: window.outerHeight, display:'flex', justifyContent: 'flex-start', flexDirection: 'row', backgroundColor: '#e6ee9c', flexWrap: 'wrap'}}>
-      {/* <Row> */}
-      {state? state.map((jobEntry, index)=>{
-        return <ListCard key={jobEntry.id} {...jobEntry}/>
-      }):null}
-      {/* </Row> */}
-      
-      {/* <pre>{state? JSON.stringify(state, null, '\t'):null}</pre> */}
-      {error? error:null}
+
+  return <Router>
+    
+    <div>
+{/* <div className='masthead mb-auto row'>
+
+      <nav className="nav nav-masthead d-flex justify-content-between align-items-center fixed-top bg-primary pr-50 p-0 shadow">
+        <a onClick={()=>handleBack()} className="  mr-8 text-white" href="#"> &larr; </a>
+        <p className="navbar-brand  mr-0 text-white ">page name</p>
+        
+      </nav>
+</div> */}
+      <div className='chartjs-size-monitor'>
+
+        <Switch>
+          <Route exact path='/'>
+            <Home />
+          </Route>
+          <Route exact path='/:jobId'>
+            <JobDetail />
+          </Route>
+        </Switch>
+      </div>
     </div>
-  );
+  </Router>
 }
 
 export default App;
