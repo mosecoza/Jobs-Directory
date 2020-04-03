@@ -2,33 +2,26 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useHistory } from "react-router-dom";
 import { ReactComponent as Placeholder } from "../../assets/placeholder.svg";
 import moment from 'moment';
-import {handleTitle, createMarkup} from '../../utils/functions';
+import { handleTitle, createMarkup } from '../../utils/functions';
 
-export default function CardBodyTitleSubtitleExample({ 
+export default function CardBodyTitleSubtitleExample({
     id,
-     type, 
-     url, 
-     created_at, 
-     company,
-      company_url, 
-      location, 
-      title, 
-      description, 
-      how_to_apply, 
-      company_logo 
-    }) {
+    type,
+    url,
+    created_at,
+    company,
+    company_url,
+    location,
+    title,
+    description,
+    how_to_apply,
+    company_logo
+}) {
 
+    var mounted = true;
     const innerLocation = useLocation();
     const innerHistory = useHistory();
-    const spanRef = useRef(null);
-    const [someHTML,] = useState(description.split('<p>')[1]);
 
-    useEffect(() => {
-
-        if (spanRef.current) {
-            spanRef.current.innerHTML = someHTML;
-        }
-    }, [spanRef.current]);
 
     function handleSelectedJob() {
 
@@ -80,7 +73,7 @@ export default function CardBodyTitleSubtitleExample({
                     <a className='card-title text-info'>{company}</a>
                     <p className='font-italic' style={{ fontSize: 10 }}>{type}</p>
                     <p
-                        style={{ maxHeight: 100, maxWidth: 300, fontSize: 14 }}
+                        style={{ maxHeight: 100, maxWidth: 250, fontSize: 14 }}
                         className='h-5 text-wrap text-center  text-truncate d-inline-block overflow-hidden'
                         dangerouslySetInnerHTML={createMarkup(description)}
                     >
